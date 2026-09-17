@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Задачи</h1>
+    <a href="/add" class="btn btn-primary">Новая задача</a>
+</div>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card text-bg-success mb-3">
+            <div class="card-body">Выполнено: {{ d }}</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-bg-warning mb-3">
+            <div class="card-body">Не выполнено: {{ u }}</div>
+        </div>
+    </div>
+</div>
+<div class="mb-3 d-flex gap-2">
+    <a href="/" class="btn btn-outline-secondary btn-sm">Все</a>
+    {% for c in cats %}
+        <a href="/?category={{ c }}" class="btn btn-outline-secondary btn-sm">{{ c }}</a>
+    {% endfor %}
+    <a href="/?sort=done" class="btn btn-outline-info btn-sm ms-auto">Сначала выполненные</a>
+    <a href="/?sort=undone" class="btn btn-outline-info btn-sm">Сначала невыполненные</a>
+</div>
+<div class="row">
+    {% for t in tasks %}
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 {% if t.done %}border-success{% endif %}">
+            <div class="card-body">
+                <h5 class="card-title {% if t.done %}text-decoration-line-through text-muted{% endif %}">{{ t.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ t.category }}</h6>
+                <p class="card-text">{{ t.description }}</p>
+            </div>
+            <div class="card-footer bg-transparent d-flex justify-content-between">
+                <a href="/toggle/{{ t.id }}" class="btn btn-sm {% if t.done %}btn-warning{% else %}btn-success{% endif %}">{% if t.done %}Отменить{% else %}Выполнить{% endif %}</a>
+                <div>
+                    <a href="/edit/{{ t.id }}" class="btn btn-sm btn-primary">Изменить</a>
+                    <a href="/delete/{{ t.id }}" class="btn btn-sm btn-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>Нет задач</p>
+    {% endfor %}
+</div>
+{% endblock %}

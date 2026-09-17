@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h3 class="mb-3">{{ title }}</h3>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ form.title.label(class="form-label") }}
+                    {{ form.title(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.description.label(class="form-label") }}
+                    {{ form.description(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.category.label(class="form-label") }}
+                    {{ form.category(class="form-control") }}
+                </div>
+                {{ form.submit(class="btn btn-primary w-100") }}
+            </form>
+            <a href="/" class="btn btn-link mt-2 w-100 text-center">Назад</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
